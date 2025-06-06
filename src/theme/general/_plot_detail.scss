@@ -1,0 +1,41 @@
+.container-general {
+    background-color: #C4DEAA;
+    border-radius: 1.5rem;
+    width: 70%;
+    position: relative;
+    height: 315px;
+}
+
+.plant-image {
+    width: auto;
+    height: 285px;
+    padding-left: 35px;
+    position: absolute;
+    top: 15px;
+    left: -20px;
+}
+
+.param1 {
+    position: absolute;
+    top: -0;
+    right: -110px;
+}
+
+.param2 {
+    position: absolute;
+    top: 92px;
+    right: -110px;
+}
+
+.param3 {
+    position: absolute;
+    bottom: -0;
+    right: -110px;
+}
+
+.watering-general {
+    background-color: #71C5F0;
+    border-radius: 1.5rem;
+    position: relative;
+    height: 315px;
+}
