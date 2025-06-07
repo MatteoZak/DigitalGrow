@@ -1,0 +1,17 @@
+<ion-card class="border-radius-container-tips-general">
+  <ion-card-header>
+    <ion-card-title>{{ title }}</ion-card-title>
+
+    <!-- (click)="mostraDettagli()" -->
+    <span (click)="goToDetailed()" class="material-symbols-outlined info-icon">
+      info
+    </span>
+
+
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
+    <markdown [data]="tips"></markdown>
+  </ion-card-content>
+</ion-card>

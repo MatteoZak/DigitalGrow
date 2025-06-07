@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="medium">Consigli per {{plantType}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="ion-padding">
+  <ion-spinner *ngIf="isLoadingSheet"></ion-spinner>
+  <ion-card>
+    <ion-card-content >
+      <markdown class="care-sheet-header" [data]="careSheetHeader"></markdown>
+      <markdown class="care-sheet-content" [data]="careSheetBody"></markdown>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,17 @@
+<main class="container">
+  <h1>Interfaccia per Gemini API</h1>
+
+  <textarea [(ngModel)]="prompt" placeholder="Scrivi il tuo prompt qui..."></textarea>
+  <button (click)="callGeminiApi()" [disabled]="isLoading">
+    {{ isLoading ? 'Caricamento...' : 'Invia a Gemini' }}
+  </button>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="geminiResponse" class="response-container">
+    <h2>Risposta:</h2>
+    <pre>{{ geminiResponse }}</pre>
+  </div>
+</main>

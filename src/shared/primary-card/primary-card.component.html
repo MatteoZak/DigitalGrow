@@ -1,26 +1,25 @@
-<ion-card class="primary-card-border-radius primary-card-border primary-card-background" style="width: 180px;">
+<ion-card class="primary-card-border-radius primary-card-border primary-card-background primary-card-background-{{color}}">
   <ion-card-content>
-    <div class="card-content d-flex">
+    <div class="card-flex-container">
 
-      <div class="row">
-        <div class="col-4">
-          <div class="card-primary-icon">
-            <span class="material-symbols-outlined">
-              {{icon}}
-            </span>
-          </div>
-        </div>
-        <div class="col-8 description-overflow-wrap " style="text-align: center;">
-          <p class="m-0">
-            {{description}}
-          </p>
-          <p class="m-0">
-            {{value}}
-          </p>
-        </div>
-      </div>
-
+  <div class="icon-wrapper">
+    <div [ngClass]="{'card-water-icon': color === 'blue', 'card-primary-icon': color === 'green'}">
+      <span class="material-symbols-outlined">
+        {{icon}}
+      </span>
     </div>
+  </div>
+
+  <div class="text-wrapper description-overflow-wrap">
+    <p class="m-0">
+      {{description}}
+    </p>
+    <p class="m-0">
+      {{value + ' ' }}{{unitMeasure}}
+    </p>
+  </div>
+  
+</div>
   </ion-card-content>
 </ion-card>
 

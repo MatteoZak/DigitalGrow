@@ -2,8 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { localEnvironment } from './environment.local';
+
 export const environment = {
-  production: false
+  // L'operatore '...' unisce gli oggetti.
+  // La chiave 'geminiApiKey' da localEnvironment sovrascriverà quella di default.
+  ...localEnvironment
 };
 
 /*

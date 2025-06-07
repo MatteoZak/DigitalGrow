@@ -3,34 +3,40 @@
     border-radius: 1.5rem;
     width: 70%;
     position: relative;
-    height: 315px;
+    height: 350px;
 }
 
 .plant-image {
     width: auto;
-    height: 285px;
-    padding-left: 35px;
+    height: 275px;
+    padding-left: 40px;
     position: absolute;
-    top: 15px;
+    top: 25px;
     left: -20px;
 }
 
 .param1 {
     position: absolute;
-    top: -0;
+    top: 0;
     right: -110px;
 }
 
 .param2 {
     position: absolute;
-    top: 92px;
+    top: 98px;
     right: -110px;
 }
 
 .param3 {
     position: absolute;
-    bottom: -0;
+    bottom: 25px;
     right: -110px;
+}
+
+.param4 {
+    position: absolute;
+    bottom: -65px;
+    left: 15px;
 }
 
 .watering-general {

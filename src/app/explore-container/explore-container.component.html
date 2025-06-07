@@ -1,22 +1,57 @@
 <div class="m-2 ms-3 p-2 py-5 container-general">
     <img src="../../assets/images/pianta.png" alt="Plant" class="plant-image">
 
-    <div class="param1">
-        <app-primary-card [description]="'Temperatura'" [value]="'21.0 °C'" [icon]="'thermostat'">
+     <div class="param1">
+        <app-primary-card
+        [description]="'Luce'"
+        [value]="currentSensorData.lightIntensity"
+        [unitMeasure]="'Lux'"
+        [icon]="'sunny'"
+        [color]="'green'">
         </app-primary-card>
     </div>
 
     <div class="param2">
-        <app-primary-card [description]="'Umidità'" [value]="'55%'" [icon]="'water_drop'">
+        <app-primary-card
+            [description]="'Temperatura'"
+            [value]="currentSensorData.temperature"
+            [unitMeasure]="'°C'"
+            [icon]="'thermostat'"
+            [color]="'green'">
         </app-primary-card>
     </div>
 
     <div class="param3">
-        <app-primary-card [description]="'Serbatoio'" [value]="'75%'" [icon]="'water'">
+        <app-primary-card
+        [description]="'Umidità'"
+        [value]="currentSensorData.humidity"
+        [unitMeasure]="'%'"
+        [icon]="'water_drop'"
+        [color]="'green'">
+        </app-primary-card>
+    </div>
+
+    <div class="param4">
+        <app-primary-card
+        [description]="'Serbatoio'"
+        [value]="currentSensorData.tankLevel"
+        [unitMeasure]="'%'"
+        [icon]="'water'"
+        [color]="'blue'">
         </app-primary-card>
     </div>
 </div>
 
-<div class="m-3 p-2 watering-general">
+<!-- <div class="m-3 p-2 watering-general">
 
+</div> -->
+<div style="margin-top: 60px">
+<app-tips-card *ngIf="dashboardTips && !isLoading" [title]="'Consigli del giorno'" [tips]="dashboardTips"
+    [isLoading]="isLoading">
+</app-tips-card>
 </div>
+
+
+<!-- <app-gemini-chat>
+
+</app-gemini-chat> -->
