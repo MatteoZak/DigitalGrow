@@ -29,10 +29,9 @@ export class ExploreContainerComponent implements OnInit {
   isIrrigazioneAutomatica: boolean = false;
   irrigationThreshold: number = 50;
   
-  // Dati finti per l'esempio, tu li prenderai dai sensori
   currentSensorData: SensorData = { temperature: 28, humidity: 35, tankLevel: 80, lightIntensity: 70 };
 
-  plantType: string = 'Aglaonema'; // L'utente inserirà questo valore in un input
+  plantType: string = 'Aglaonema';
   careSheet: string = '';
   isLoading: boolean = false;
   error: string | null = null;
@@ -50,14 +49,13 @@ export class ExploreContainerComponent implements OnInit {
   }
 
   generateTips() {
-    this.isLoading = true; // Spostato qui per una UI più reattiva
+    this.isLoading = true;
     this.error = null;
 
     this.geminiService.getDetailedCareSheet(this.plantType).subscribe({
-      next: (responseText: string) => { // 'responseText' è già la stringa finale
+      next: (responseText: string) => {
         
-        // La riga da modificare è questa:
-        this.careSheet = responseText; // Assegna direttamente la risposta
+        this.careSheet = responseText;
 
         this.isLoading = false;
         console.log('Scheda di cura generata o caricata dalla cache!', this.careSheet);

@@ -8,12 +8,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="chat-container p-2">
+  <div #chatContainer class="chat-container p-2 pt-5">
     <div *ngFor="let message of messages" class="message-wrapper"
       [ngClass]="{ 'user-message-wrapper': message.sender === 'user' }">
       <div class="chat-bubble"
         [ngClass]="{ 'user-bubble': message.sender === 'user', 'gemini-bubble': message.sender === 'gemini' }">
-        <p>{{ message.content }}</p>
+
+        <p *ngIf="message.sender === 'user'">{{ message.content }}</p>
+
+        <markdown *ngIf="message.sender === 'gemini'" [data]="message.content"></markdown>
+
       </div>
     </div>
     <div *ngIf="isLoading" class="message-wrapper">
@@ -22,19 +26,19 @@
       </div>
     </div>
   </div>
+
+  <div class="chat-input-area">
+    
+    <div class="textarea-wrapper">
+      <ion-textarea [(ngModel)]="newMessage" placeholder="Scrivi il tuo messaggio..." [autoGrow]="true"
+        (keydown.enter)="sendMessage(); $event.preventDefault()">
+      </ion-textarea>
+    </div>
+
+    <ion-button class="send-button" (click)="sendMessage()" [disabled]="newMessage.trim() === '' || isLoading">
+      <span class="material-symbols-outlined filled">send</span>
+    </ion-button>
+
+  </div>
 </ion-content>
 
-<ion-footer collapse="condense" style="margin-bottom: 35px !important;">
-  <ion-toolbar class="chat-input-toolbar">
-    <ion-textarea [(ngModel)]="newMessage" placeholder="Scrivi il tuo messaggio..." [autoGrow]="true"
-      (keydown.enter)="sendMessage(); $event.preventDefault()">
-    </ion-textarea>
-    <ion-buttons slot="end">
-      <ion-button (click)="sendMessage()" [disabled]="newMessage.trim() === '' || isLoading">
-        <span class="material-symbols-outlined">
-          send
-        </span>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>

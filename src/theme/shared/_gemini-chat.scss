@@ -1,8 +1,14 @@
+
+
 // Contenitore principale per i messaggi, usa flexbox per allinearli
 .chat-container {
   display: flex;
   flex-direction: column;
   gap: 10px; // Spazio tra i messaggi
+  padding-bottom: 90px;
+  height: 85%;
+  max-height: 85%;
+    overflow-y: auto; // Permette lo scorrimento verticale se i messaggi superano l'altezza
 }
 
 // Wrapper per ogni messaggio, per l'allineamento
@@ -49,9 +55,123 @@
 
   ion-textarea {
     max-height: 100px; // Limita l'altezza del textarea
-    background: #f1f1f1;
+    background: white;
     border-radius: 20px;
     padding-left: 15px !important;
     padding-right: 15px !important;
   }
 }
+
+.gemini-bubble markdown {
+  
+  // Stile per i titoli
+  h1, h2, h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  
+  h1 { font-size: 1.4em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.2em; }
+
+  // Stile per i paragrafi
+  p {
+    margin-bottom: 10px;
+  }
+  
+  // Stile per le liste
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  
+  // Stile per i blocchi di codice
+  pre {
+    background-color: #e9e9e9;
+    padding: 10px;
+    border-radius: 8px;
+    white-space: pre-wrap; // Permette al codice di andare a capo
+    word-wrap: break-word;
+  }
+  
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #e9e9e9;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  pre code {
+    background-color: transparent; // Rimuove il doppio sfondo per il codice nei blocchi pre
+    padding: 0;
+  }
+}
+
+
+
+.chat-input-area {
+  // La magia è qui:
+
+  // Aggiungiamo uno sfondo per evitare che i messaggi si vedano attraverso
+  // quando ci scorrono sotto. Puoi usare il colore di sfondo della tua pagina.
+  background: var(--ion-background-color, #ffffff);
+  
+
+
+  // Il resto dello stile per allineare gli elementi rimane lo stesso
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+// Contenitore per il textarea
+.textarea-wrapper {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  /* Aggiunta di sicurezza: nasconde qualsiasi cosa che esce dai bordi arrotondati */
+  overflow: hidden;
+
+  ion-textarea {
+    /* --- LA SOLUZIONE È QUESTA RIGA --- */
+    /* Dice al componente ion-textarea di non avere un proprio colore di sfondo */
+    --background: transparent;
+
+    /* Il resto dello stile rimane invariato */
+    --padding-start: 15px;
+    --padding-end: 15px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    min-height: 45px;
+  }
+}
+
+// Stile per il pulsante di invio
+.send-button {
+  --background: #C4DEAA;
+  --border-radius: 50%;
+  --color: #000000;
+  width: 50px;
+  height: 50px;
+  
+  /* NUOVO: Usiamo flexbox per centrare perfettamente l'icona */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Rimuoviamo il padding che può interferire con il centraggio
+  --padding-start: 5px;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+

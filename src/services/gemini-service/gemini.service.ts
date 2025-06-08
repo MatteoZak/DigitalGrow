@@ -132,19 +132,41 @@ SEZIONI OBBLIGATORIE:
    * Invia un prompt all'API di Gemini e restituisce la risposta.
    * @param prompt Il testo da inviare al modello.
    */
-  generateText(prompt: string): Observable<any> {
+  generateText(prompt: string, plantType: string): Observable<any> {
+
+    // 1. ISTRUZIONI DI SISTEMA (Guardrail)
+    // Queste sono le regole che l'AI deve sempre seguire.
+    const systemInstructions = `Sei "DigitalGrow", un assistente esperto di botanica e giardinaggio. Rispondi SOLO a domande relative a piante, cura delle piante, e giardinaggio. Se una domanda non è inerente a questi argomenti, rispondi gentilmente: "Sono specializzato solo in domande sulle piante, non posso aiutarti con questo." Non deviare mai da questo ruolo.`;
+
+    // 2. CONTESTO SPECIFICO (La pianta dell'utente)
+    // Costruiamo una stringa di contesto solo se la pianta è stata fornita.
+    let specificContext = '';
+    if (plantType) {
+      specificContext = `Contesto sulla pianta dell'utente:
+      - Nome: ${plantType}
+      Rispondi tenendo conto di queste informazioni.`;
+    }
+
+    // 3. COSTRUZIONE DEL PROMPT FINALE
+    // Combiniamo tutto in un unico mega-prompt.
+    const finalPrompt = `
+      ${systemInstructions}
+
+      ${specificContext}
+
+      Domanda dell'utente: "${prompt}"
+    `;
+
+    // Il corpo della richiesta ora contiene il nostro prompt ingegnerizzato
     const requestBody = {
-      contents: [
-        {
-          parts: [
-            {
-              text: prompt
-            }
-          ]
-        }
-      ]
+      contents: [{
+        parts: [{
+          text: finalPrompt
+        }]
+      }]
     };
 
+    console.log("Prompt inviato a Gemini:", finalPrompt); // Utile per il debug
     return this.http.post<any>(this.apiUrl, requestBody);
   }
 }

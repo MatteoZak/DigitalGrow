@@ -1,11 +1,9 @@
-// File: tab2.page.ts (versione pulita e corretta)
-
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { IonContent, IonHeader, IonToolbar, IonTitle, IonFooter } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonButton, IonSpinner, IonTitle, IonToolbar, IonTextarea } from '@ionic/angular/standalone';
 import { GeminiService } from 'src/services/gemini-service/gemini.service';
+import { MarkdownModule } from 'ngx-markdown';
 
 export interface Message {
   content: string;
@@ -18,21 +16,27 @@ export interface Message {
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [
-    IonicModule,
+  imports: [IonHeader, 
+    IonButton,
+    IonSpinner,
+    IonTitle,
+    IonTextarea,
+    IonToolbar,
     CommonModule,
     FormsModule,
-    // I componenti standalone non necessitano di importare i loro tag di layout qui
+    MarkdownModule,
+    IonContent
   ]
 })
 export class Tab2Page {
-  @ViewChild(IonContent) private content!: IonContent;
+  private geminiService = inject(GeminiService);
+
+  @ViewChild('chatContainer') private chatContainer!: ElementRef;
 
   messages: Message[] = [];
   isLoading: boolean = false;
   newMessage: string = '';
-
-  private geminiService = inject(GeminiService);
+  plantType: string = 'Aglaonema';
 
   constructor() {
     this.messages.push({
@@ -52,10 +56,10 @@ export class Tab2Page {
       timestamp: new Date()
     });
     this.newMessage = '';
-    this.scrollToBottom();
+    this.scrollToBottom(); // Scroll per il messaggio dell'utente
 
     this.isLoading = true;
-    this.geminiService.generateText(messageText).subscribe({
+    this.geminiService.generateText(messageText, this.plantType).subscribe({
       next: (response) => {
         const geminiResponse = response.candidates[0].content.parts[0].text;
         this.messages.push({
@@ -64,7 +68,7 @@ export class Tab2Page {
           timestamp: new Date()
         });
         this.isLoading = false;
-        this.scrollToBottom();
+        this.scrollToBottom(); // <-- AGGIUNGI QUESTA RIGA
       },
       error: (err) => {
         console.error('Errore durante la chiamata a Gemini:', err);
@@ -74,12 +78,23 @@ export class Tab2Page {
           timestamp: new Date()
         });
         this.isLoading = false;
-        this.scrollToBottom();
+        this.scrollToBottom(); // <-- AGGIUNGI QUESTA RIGA ANCHE QUI
       }
     });
   }
 
   scrollToBottom() {
-    setTimeout(() => this.content?.scrollToBottom(300), 100);
+    setTimeout(() => {
+      try {
+        const scrollElement = this.chatContainer.nativeElement;
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+      } catch (err) {
+        console.error('Errore durante lo scrolling:', err);
+      }
+    }, 100);
+  }
+
+  trackByMessage(index: number, message: Message): number {
+    return message.timestamp.getTime(); 
   }
 }
