@@ -1,0 +1,57 @@
+// Contenitore principale per i messaggi, usa flexbox per allinearli
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // Spazio tra i messaggi
+}
+
+// Wrapper per ogni messaggio, per l'allineamento
+.message-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+// Allinea a destra i messaggi dell'utente
+.user-message-wrapper {
+  justify-content: flex-end;
+}
+
+// Stile base della "bolla" di chat
+.chat-bubble {
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word; // Manda a capo le parole lunghe
+
+  p {
+    margin: 0;
+  }
+}
+
+// Stile per le bolle di Gemini (sinistra)
+.gemini-bubble {
+  background: #f1f1f1; // Grigio chiaro
+  color: #333;
+  border-bottom-left-radius: 5px;
+}
+
+// Stile per le bolle dell'utente (destra)
+.user-bubble {
+  background: var(--ion-color-primary, #3880ff); // Colore primario di Ionic
+  color: #ffffff;
+  border-bottom-right-radius: 5px;
+}
+
+// Stile per la barra di input in basso
+.chat-input-toolbar {
+  --padding-start: 10px;
+  --padding-end: 10px;
+
+  ion-textarea {
+    max-height: 100px; // Limita l'altezza del textarea
+    background: #f1f1f1;
+    border-radius: 20px;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}

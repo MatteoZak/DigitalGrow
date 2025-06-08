@@ -1,54 +1,71 @@
-<div class="m-2 ms-3 p-2 py-5 container-general">
+<div class="m-2 ms-3 mt-4 p-2 py-5 container-general">
     <img src="../../assets/images/pianta.png" alt="Plant" class="plant-image">
 
-     <div class="param1">
-        <app-primary-card
-        [description]="'Luce'"
-        [value]="currentSensorData.lightIntensity"
-        [unitMeasure]="'Lux'"
-        [icon]="'sunny'"
-        [color]="'green'">
+    <div class="param1">
+        <app-primary-card [description]="'Luce'" [value]="currentSensorData.lightIntensity" [unitMeasure]="'Lux'"
+            [icon]="'sunny'" [color]="'green'">
         </app-primary-card>
     </div>
 
     <div class="param2">
-        <app-primary-card
-            [description]="'Temperatura'"
-            [value]="currentSensorData.temperature"
-            [unitMeasure]="'°C'"
-            [icon]="'thermostat'"
-            [color]="'green'">
+        <app-primary-card [description]="'Temperatura'" [value]="currentSensorData.temperature" [unitMeasure]="'°C'"
+            [icon]="'thermostat'" [color]="'green'">
         </app-primary-card>
     </div>
 
     <div class="param3">
-        <app-primary-card
-        [description]="'Umidità'"
-        [value]="currentSensorData.humidity"
-        [unitMeasure]="'%'"
-        [icon]="'water_drop'"
-        [color]="'green'">
+        <app-primary-card [description]="'Umidità'" [value]="currentSensorData.humidity" [unitMeasure]="'%'"
+            [icon]="'water_drop'" [color]="'green'">
         </app-primary-card>
     </div>
 
     <div class="param4">
-        <app-primary-card
-        [description]="'Serbatoio'"
-        [value]="currentSensorData.tankLevel"
-        [unitMeasure]="'%'"
-        [icon]="'water'"
-        [color]="'blue'">
+        <app-primary-card [description]="'Serbatoio'" [value]="currentSensorData.tankLevel" [unitMeasure]="'%'"
+            [icon]="'water'" [color]="'blue'">
         </app-primary-card>
     </div>
 </div>
 
-<!-- <div class="m-3 p-2 watering-general">
-
-</div> -->
 <div style="margin-top: 60px">
-<app-tips-card *ngIf="dashboardTips && !isLoading" [title]="'Consigli del giorno'" [tips]="dashboardTips"
-    [isLoading]="isLoading">
-</app-tips-card>
+    <ion-card class="border-radius-container-tips-general">
+
+        <ion-card-header>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <ion-card-title>Irrigazione</ion-card-title>
+                </div>
+                <div>
+                    <ion-toggle [(ngModel)]="isIrrigazioneAutomatica">Automatica</ion-toggle>
+                </div>
+            </div>
+
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <div *ngIf="isIrrigazioneAutomatica">
+                <ion-range style="padding-top: 0px !important"
+                    aria-label="Range with ticks" [ticks]="true" [snaps]="true" [pin]="true"
+                    [pinFormatter]="pinFormatter" [min]="0" [max]="100" [(ngModel)]="irrigationThreshold">
+                    <div slot="start">0%</div>
+                    <div slot="end">100%</div>
+                </ion-range>
+                <div>
+                    La pianta sarà annaffiata in maniera automatica quando l'umidità scenderà sotto il {{ irrigationThreshold }}%
+                </div>
+            </div>
+            <div *ngIf="!isIrrigazioneAutomatica">
+                <ion-button shape="round" style="--background: #71C5F0;">Annaffia</ion-button>
+            </div>
+
+        </ion-card-content>
+    </ion-card>
+</div>
+
+<div>
+    <app-tips-card *ngIf="dashboardTips && !isLoading" [title]="'Consigli del giorno'" [tips]="dashboardTips"
+        [isLoading]="isLoading">
+    </app-tips-card>
 </div>
 
 

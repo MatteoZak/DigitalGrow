@@ -1,17 +1,40 @@
-<ion-header [translucent]="true">
+<ion-header collapse="condense">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <div class="d-flex align-items-center">
+      <img src="../../assets/images/Zacchino.png" style="width: auto; height: 35px;" />
+      <ion-title>DigitalGrow</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="chat-container p-2">
+    <div *ngFor="let message of messages" class="message-wrapper"
+      [ngClass]="{ 'user-message-wrapper': message.sender === 'user' }">
+      <div class="chat-bubble"
+        [ngClass]="{ 'user-bubble': message.sender === 'user', 'gemini-bubble': message.sender === 'gemini' }">
+        <p>{{ message.content }}</p>
+      </div>
+    </div>
+    <div *ngIf="isLoading" class="message-wrapper">
+      <div class="chat-bubble gemini-bubble">
+        <ion-spinner name="dots"></ion-spinner>
+      </div>
+    </div>
+  </div>
 </ion-content>
+
+<ion-footer collapse="condense" style="margin-bottom: 35px !important;">
+  <ion-toolbar class="chat-input-toolbar">
+    <ion-textarea [(ngModel)]="newMessage" placeholder="Scrivi il tuo messaggio..." [autoGrow]="true"
+      (keydown.enter)="sendMessage(); $event.preventDefault()">
+    </ion-textarea>
+    <ion-buttons slot="end">
+      <ion-button (click)="sendMessage()" [disabled]="newMessage.trim() === '' || isLoading">
+        <span class="material-symbols-outlined">
+          send
+        </span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

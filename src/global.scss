@@ -3,6 +3,8 @@
 @use './theme/general/plot_detail.scss';
 @use './theme/shared/tips-card.scss';
 @use './theme/general/details_tips_page.scss';
+@use './theme/general/bottom-bar.scss';
+@use './theme/shared/gemini-chat.scss';
 
 @import "@ionic/angular/css/core.css";
 
@@ -94,4 +96,17 @@
 	--ion-color-dark-shade: #292929;
 	--ion-color-dark-tint: #444444;
 
+}
+
+ion-card-title {
+	font-size: 20px !important;
+}
+
+ion-toolbar {
+	max-height: 45px;;
+}
+
+ion-title {
+	font-size: 24px !important;
+	font-weight: 600;
 }

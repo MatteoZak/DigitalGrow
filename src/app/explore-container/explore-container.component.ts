@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { GeminiService, SensorData } from 'src/services/gemini-service/gemini.service';
-import { GeminiChatComponent } from 'src/shared/gemini-chat/gemini-chat.component';
 import { PrimaryCardComponent } from 'src/shared/primary-card/primary-card.component';
 import { TipsCardComponent } from 'src/shared/tips-card/tips-card.component';
 
@@ -11,10 +11,10 @@ import { TipsCardComponent } from 'src/shared/tips-card/tips-card.component';
   imports: [
     IonicModule,
     PrimaryCardComponent,
-    GeminiChatComponent,
     CommonModule,
     MarkdownModule,
     TipsCardComponent,
+    FormsModule,
   ],
   standalone: true,
   selector: 'app-explore-container',
@@ -26,6 +26,8 @@ export class ExploreContainerComponent implements OnInit {
   private geminiService = inject(GeminiService);
   dashboardTips: string = '';
   isLoadingTips: boolean = false;
+  isIrrigazioneAutomatica: boolean = false;
+  irrigationThreshold: number = 50;
   
   // Dati finti per l'esempio, tu li prenderai dai sensori
   currentSensorData: SensorData = { temperature: 28, humidity: 35, tankLevel: 80, lightIntensity: 70 };
@@ -66,6 +68,10 @@ export class ExploreContainerComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  pinFormatter(value: number) {
+    return `${value}%`;
   }
   
 }
