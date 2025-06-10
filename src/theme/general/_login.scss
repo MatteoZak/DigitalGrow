@@ -1,0 +1,118 @@
+/* login.page.scss */
+
+.bg-color-content {
+  --background: #E8EDDE; // Colore di sfondo verde chiaro
+}
+
+.login-container {
+    --background: #E8EDDE;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 32px;
+}
+
+.header-section {
+  text-align: left;
+  margin-bottom: 30px;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
+  }
+}
+
+.input-item {
+  --background: #ffffff;
+  --border-radius: 36px;
+  --padding-start: 12px;
+  border-radius: 36px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+  ion-icon {
+    color: #ccc;
+  }
+}
+
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+
+  .remember-me-item {
+    --background: transparent;
+    --inner-padding-end: 0;
+    ion-checkbox {
+      --size: 18px;
+    }
+  }
+
+  .forgot-password-btn {
+    --color: #2e7d32; // Verde scuro per i link
+    text-transform: none;
+  }
+}
+
+.login-button {
+  --background: #4A6A4F;
+  --background-activated: #38513c;
+  --border-radius: 36px;
+  --box-shadow: none;
+  height: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.separator {
+  margin: 30px 0;
+  text-align: center;
+  color: #aaa;
+  position: relative;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #e0e0e0;
+  }
+  &::before { left: 0; }
+  &::after { right: 0; }
+}
+
+.social-buttons {
+  display: flex;
+  gap: 15px;
+
+  .social-button {
+    --border-color: #e0e0e0;
+    --border-radius: 36px;
+    --color: #333;
+    height: 50px;
+    flex: 1;
+    text-transform: none;
+  }
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 30px;
+  
+  a {
+    color: #2e7d32 !important;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}

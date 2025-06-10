@@ -1,25 +1,33 @@
-<ion-card class="primary-card-border-radius primary-card-border primary-card-background primary-card-background-{{color}}">
+<ion-card
+  class="primary-card-border-radius primary-card-width primary-card-border primary-card-background primary-card-background-{{color}}">
   <ion-card-content>
     <div class="card-flex-container">
 
-  <div class="icon-wrapper">
-    <div [ngClass]="{'card-water-icon': color === 'blue', 'card-primary-icon': color === 'green'}">
-      <span class="material-symbols-outlined">
-        {{icon}}
-      </span>
-    </div>
-  </div>
+      <div class="icon-wrapper">
+        <div [ngClass]="{'card-water-icon': color === 'blue', 'card-primary-icon': color === 'green'}">
+          <span class="material-symbols-outlined">
+            {{icon}}
+          </span>
+        </div>
+      </div>
 
-  <div class="text-wrapper description-overflow-wrap">
-    <p class="m-0">
-      {{description}}
-    </p>
-    <p class="m-0">
-      {{value + ' ' }}{{unitMeasure}}
-    </p>
-  </div>
-  
-</div>
+      <div class="text-wrapper description-overflow-wrap">
+        <p class="m-0">
+          {{description}}
+        </p>
+        @if (value) {
+        <p class="m-0">
+          {{value + ' ' }}{{unitMeasure}}
+        </p>
+        } @else {
+        <p class="m-0">
+          N/A
+        </p>
+        }
+
+      </div>
+
+    </div>
   </ion-card-content>
 </ion-card>
 

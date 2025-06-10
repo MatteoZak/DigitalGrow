@@ -1,16 +1,27 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="medium">Consigli per {{plantType}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button> </ion-buttons>
+    <ion-title>Consigli per {{plantType}}</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" [scrollEvents]="true">
+
   <ion-spinner *ngIf="isLoadingSheet"></ion-spinner>
-  <ion-card>
-    <ion-card-content >
+
+  <ion-card *ngIf="!isLoadingSheet">
+    <ion-card-content>
       <markdown class="care-sheet-header" [data]="careSheetHeader"></markdown>
       <markdown class="care-sheet-content" [data]="careSheetBody"></markdown>
     </ion-card-content>
   </ion-card>
+
+  <ion-fab *ngIf="showScrollToTopButton" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button style="--background:white;" (click)="scrollToTop()">
+      <span class="material-symbols-outlined">
+        arrow_upward
+      </span>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

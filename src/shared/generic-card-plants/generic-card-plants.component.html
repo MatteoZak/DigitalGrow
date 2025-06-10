@@ -1,0 +1,14 @@
+<div class="m-3 mt-4 p-2 py-5 d-flex align-items-center justify-content-center generic-card-container-general" >
+  <span class="m-0 generic-card-title">
+    {{plant?.name}}
+  </span>
+  <ion-button class="generic-card-actions">
+    <span class="material-symbols-outlined">more_vert</span>
+  </ion-button>
+  <span class="material-symbols-outlined generic-card-favorite"
+        [ngClass]="{'filled': plant?.isFavorite, '': !plant?.isFavorite}"
+        (click)="toggleFavorite()">
+    favorite
+  </span>
+  <img [src]="plant?.image" alt="Plant" class="generic-card-plant-image">
+</div>

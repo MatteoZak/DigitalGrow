@@ -1,31 +1,46 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GeminiService } from 'src/services/gemini-service/gemini.service';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonToolbar, IonTitle, IonCard, IonCardContent, IonSpinner, IonFab, IonFabButton, IonIcon, IonBackButton, IonButtons, IonHeader } from '@ionic/angular/standalone';
 import { MarkdownModule } from 'ngx-markdown';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-plant-detailed-tips',
   templateUrl: './plant-detailed-tips.page.html',
   styleUrls: ['./plant-detailed-tips.page.scss'],
   standalone: true,
-  imports: [
-    IonicModule,
+  imports: [IonHeader, 
     CommonModule,
     FormsModule,
     MarkdownModule,
+    IonContent,
+    IonToolbar,
+    IonTitle,
+    IonCard,
+    IonSpinner,
+    IonCardContent,
+    IonFab,
+    IonFabButton,
+    IonIcon,
+    IonBackButton,
+    IonButtons
   ]
 })
 export class PlantDetailedTipsPage implements OnInit {
 
+  @ViewChild(IonContent) private content!: IonContent;
+  
   private geminiService: GeminiService = inject(GeminiService);
+  private scrollSubscription!: Subscription;
 
   careSheetHeader: string = '';
   careSheetBody: string = '';
   isLoadingSheet: boolean = false;
   error: string | null = null;
-  plantType: string = 'Aglaonema'; // Questo arriverà dalla pagina precedente
+  plantType: string = 'Aglaonema';
+  showScrollToTopButton: boolean = false;
 
   constructor() {}
 
@@ -33,9 +48,29 @@ export class PlantDetailedTipsPage implements OnInit {
     this.fetchDetailedCareSheet();
   }
 
+  ionViewDidEnter() {
+    this.scrollSubscription = this.content.ionScroll.subscribe(event => {
+      if (event.detail.scrollTop > 400) {
+        this.showScrollToTopButton = true;
+      } else {
+        this.showScrollToTopButton = false;
+      }
+    });
+  }
+
+  ionViewWillLeave() {
+    if (this.scrollSubscription) {
+      this.scrollSubscription.unsubscribe();
+    }
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(500);
+  }
+
   fetchDetailedCareSheet() {
   this.isLoadingSheet = true;
-  this.careSheetHeader = ''; // Resettiamo le variabili
+  this.careSheetHeader = '';
   this.careSheetBody = '';
   
   this.geminiService.getDetailedCareSheet(this.plantType).subscribe({

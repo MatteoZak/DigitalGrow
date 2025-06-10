@@ -1,0 +1,81 @@
+<ion-content [fullscreen]="true" class="bg-color-content">
+  <div class="auth-container"> <div class="header-section">
+      <h1>Crea Account</h1>
+      <p>Inizia il tuo viaggio nel giardinaggio digitale. Bastano pochi istanti. ✨</p>
+    </div>
+
+    <form (ngSubmit)="signup()" [formGroup]="signupForm">
+
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-input
+          label="Nome Completo"
+          labelPlacement="floating"
+          type="text"
+          formControlName="fullName">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          type="email"
+          formControlName="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          label="Conferma Password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="confirmPassword">
+        </ion-input>
+      </ion-item>
+
+      <div class="options-row">
+        <ion-item lines="none" class="remember-me-item">
+          <ion-checkbox labelPlacement="end" formControlName="agreeToTerms">
+            Accetto i <a href="/terms" target="_blank" class="terms">Termini di Servizio</a>
+          </ion-checkbox>
+        </ion-item>
+      </div>
+
+      <ion-button expand="block" type="submit" class="login-button" [disabled]="signupForm.invalid">
+        Registrati
+      </ion-button>
+
+    </form>
+
+    <div class="separator">Oppure</div>
+
+    <div class="social-buttons">
+      <ion-button expand="block" fill="solid" color="light" class="social-button google-button">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Google
+      </ion-button>
+      <ion-button expand="block" fill="solid" color="light" class="social-button apple-button">
+        <ion-icon slot="start" name="logo-apple"></ion-icon>
+        Apple
+      </ion-button>
+    </div>
+
+    <div class="signup-link">
+      <p>Hai già un account? <a (click)="goToSignin()">Accedi</a></p>
+    </div>
+
+  </div>
+</ion-content>

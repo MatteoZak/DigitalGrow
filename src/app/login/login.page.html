@@ -1,0 +1,56 @@
+<ion-content [fullscreen]="true" class="bg-color-content">
+  <div class="login-container">
+
+    <div class="header-section">
+      <h1>Login</h1>
+      <p>È ora di controllare le tue piante! Accedi al tuo account e continua a prenderti cura di loro. 🌱</p>
+    </div>
+
+    <form (ngSubmit)="login()" [formGroup]="loginForm">
+
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input label="Password" labelPlacement="floating" type="password" formControlName="password">
+          
+        </ion-input>
+        
+      </ion-item>
+
+      <div class="options-row">
+        <ion-item lines="none" class="remember-me-item">
+          <ion-checkbox labelPlacement="end" formControlName="rememberMe">Ricordami</ion-checkbox>
+        </ion-item>
+        <ion-button fill="clear" size="small" class="forgot-password-btn">Password dimenticata</ion-button>
+      </div>
+
+      <ion-button expand="block" type="submit" class="login-button" [disabled]="loginForm.invalid">
+        Login
+      </ion-button>
+
+    </form>
+
+    <div class="separator">Oppure</div>
+
+    <div class="social-buttons">
+      <ion-button expand="block" fill="solid" color="light" class="social-button google-button">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Google
+      </ion-button>
+      <ion-button expand="block" fill="solid" color="light" class="social-button apple-button">
+        <ion-icon slot="start" name="logo-apple"></ion-icon>
+        Apple
+      </ion-button>
+    </div>
+
+    <div class="signup-link">
+      <p>Non hai un account? <a (click)="goToSignup()">Registrati</a></p>
+    </div>
+
+  </div>
+</ion-content>
