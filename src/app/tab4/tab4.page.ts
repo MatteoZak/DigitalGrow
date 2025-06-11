@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons } from '@ionic/angular/standalone';
 import { GenericCardPlantsComponent } from "../../shared/generic-card-plants/generic-card-plants.component";
 import { SensorData } from 'src/services/gemini-service/gemini.service';
 
@@ -14,7 +14,7 @@ export interface Plant {
   selector: 'app-tab4',
   templateUrl: 'tab4.page.html',
   styleUrls: ['tab4.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, GenericCardPlantsComponent],
+  imports: [IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, GenericCardPlantsComponent],
 })
 export class Tab4Page {
 

@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@capacitor-community/barcode-scanner": "^4.0.1",
     "@ionic/angular": "^8.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.6",

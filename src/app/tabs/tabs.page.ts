@@ -1,4 +1,5 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonTabs, IonTabBar, IonTabButton, IonFabButton, IonFab } from '@ionic/angular/standalone';
 
 @Component({
@@ -9,7 +10,12 @@ import { IonTabs, IonTabBar, IonTabButton, IonFabButton, IonFab } from '@ionic/a
 })
 export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
+  private _router = inject(Router);
 
   constructor() {
+  }
+
+  goToTab3() {
+    this._router.navigate(['/tabs/tab3']);
   }
 }

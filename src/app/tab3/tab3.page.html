@@ -1,13 +1,47 @@
-<ion-header collapse="condense">
+<ion-header>
   <ion-toolbar>
-    <div class="d-flex align-items-center">
-      <img src="../../assets/images/Zacchino.png" style="width: auto; height: 35px;" />
-      <ion-title size="large">DigitalGrow</ion-title>
-    </div>
-
-
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Aggiungi Vaso</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+
+<ion-content [fullscreen]="true" *ngIf="!isScanning">
+  <div class="main-container">
+
+    <div class="header-section">
+      <h1>Associa un Vaso</h1>
+      <p>Scansiona il QR code sul tuo DigitalGrow per iniziare subito.</p>
+    </div>
+
+    <ion-button class="scan-button" expand="block" (click)="startScan()">
+      <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+      Scansiona QR Code
+    </ion-button>
+
+    <div class="separator px-1"><span>Oppure inserisci il codice manualmente</span></div>
+
+    <form (ngSubmit)="submitManualCode()">
+      <ion-item class="input-item" lines="none">
+        <ion-input
+          label="Codice Vaso"
+          labelPlacement="floating"
+          [(ngModel)]="manualCode"
+          name="manualCode">
+        </ion-input>
+      </ion-item>
+      <ion-button class="mt-3 add-plot-button" type="submit" expand="block" [disabled]="!manualCode">
+        Associa Vaso
+      </ion-button>
+    </form>
+
+  </div>
 </ion-content>
+
+<div *ngIf="isScanning" class="scan-overlay">
+  <div class="scan-box"></div>
+  <ion-button class="stop-scan-button" (click)="stopScan()">
+    Annulla
+  </ion-button>
+</div>
