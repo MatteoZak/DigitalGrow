@@ -8,10 +8,16 @@ import { provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
+import { register } from 'swiper/element/bundle';
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
+    provideIonicAngular(
+      {
+      mode: 'ios' 
+    }
+    ),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
     importProvidersFrom(MarkdownModule.forRoot())

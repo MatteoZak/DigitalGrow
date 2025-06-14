@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { GeminiService, SensorData } from 'src/services/gemini-service/gemini.service';
 import { PrimaryCardComponent } from 'src/shared/primary-card/primary-card.component';
 import { TipsCardComponent } from 'src/shared/tips-card/tips-card.component';
+import { Plant } from '../tab4/tab4.page';
 
 @Component({
   imports: [
@@ -20,6 +21,7 @@ import { TipsCardComponent } from 'src/shared/tips-card/tips-card.component';
   selector: 'app-explore-container',
   templateUrl: './explore-container.component.html',
   styleUrls: ['./explore-container.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ExploreContainerComponent implements OnInit {
 
@@ -29,7 +31,33 @@ export class ExploreContainerComponent implements OnInit {
   isIrrigazioneAutomatica: boolean = false;
   irrigationThreshold: number = 50;
   
-  currentSensorData: SensorData = { temperature: 28, humidity: 35, tankLevel: 80, lightIntensity: 70 };
+  currentSensorData: SensorData = { temperature: 22, humidity: 80, tankLevel: 10, lightIntensity: 7000 };
+  
+  userPlants: Plant[] = [
+    { 
+      name: 'Pianta del Salotto', 
+      image: '../../assets/images/pianta1.png',
+      // I dati dei sensori ora sono in un oggetto annidato
+      sensorData: {
+        lightIntensity: 75,
+        temperature: 22,
+        humidity: 55,
+        tankLevel: 80
+      },
+      isFavorite: true
+    },
+    { 
+      name: 'Pianta della Cucina', 
+      image: '../../assets/images/pianta2.png',
+      sensorData: {
+        lightIntensity: 60,
+        temperature: 24,
+        humidity: 60,
+        tankLevel: 45
+      },
+      isFavorite: false
+    }
+  ];
 
   plantType: string = 'Aglaonema';
   careSheet: string = '';

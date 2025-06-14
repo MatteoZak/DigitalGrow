@@ -119,3 +119,7 @@ ion-title {
 	font-size: 24px !important;
 	font-weight: 600;
 }
+
+ion-header[collapse="condense"] {
+  display: block !important;
+}

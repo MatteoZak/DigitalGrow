@@ -17,25 +17,25 @@
 
 .param1 {
     position: absolute;
-    top: 0;
+    top: 0; //27
     right: -110px;
 }
 
 .param2 {
     position: absolute;
-    top: 98px;
+    top: 28%; //34
     right: -110px;
 }
 
 .param3 {
     position: absolute;
-    bottom: 25px;
+    bottom: 7%; // 14
     right: -110px;
 }
 
 .param4 {
     position: absolute;
-    bottom: -65px;
+    bottom: -18%; //13
     left: 15px;
 }
 
@@ -44,4 +44,29 @@
     border-radius: 1.5rem;
     position: relative;
     height: 315px;
+}
+
+/* Stili per tablet e schermi più grandi */
+@media (min-width: 768px) {
+
+  .param1 {
+    top: 8%;
+    right: -110px; // Mantenuto come da tuo codice
+  }
+
+  .param2 {
+    top: 34%;
+    right: -110px; // Mantenuto come da tuo codice
+  }
+
+  .param3 {
+    bottom: 14%;
+    right: -110px; // Mantenuto come da tuo codice
+  }
+
+  .param4 {
+    bottom: -13%;
+    left: 15px; // Mantenuto come da tuo codice
+  }
+  
 }
