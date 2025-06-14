@@ -6,13 +6,24 @@
     height: 350px;
 }
 
-.plant-image {
+/*.plant-image {
     width: auto;
     height: 275px;
     padding-left: 40px;
     position: absolute;
     top: 25px;
     left: -20px;
+}*/
+
+.plant-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Mantieni le tue dimensioni originali se necessario */
+    width: auto;
+    height: 275px; 
 }
 
 .param1 {

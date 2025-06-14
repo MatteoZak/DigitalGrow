@@ -10,6 +10,8 @@ import { MarkdownModule } from 'ngx-markdown';
 
 import { register } from 'swiper/element/bundle';
 
+register();
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

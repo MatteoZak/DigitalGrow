@@ -2,7 +2,7 @@
   <span class="m-0 generic-card-title">
     {{plant?.name}}
   </span>
-  <ion-button class="generic-card-actions">
+  <ion-button class="generic-card-actions" (click)="presentPopover($event)">
     <span class="material-symbols-outlined">more_vert</span>
   </ion-button>
   <span class="material-symbols-outlined generic-card-favorite"

@@ -1,5 +1,42 @@
-<!-- Inizio card dinamica -->
-<div class="m-2 ms-3 mt-4 p-2 py-5 container-general">
+<swiper-container [pagination]="true" [loop]="true">
+
+    <swiper-slide *ngFor="let currentPlant of userPlants" style="height: 450px !important;">
+        <div class="m-2 ms-3 mt-4 p-2 py-5 container-general">
+    <img [src]="currentPlant.image" alt="Plant" class="plant-image">
+
+    <div class="param1">
+        <app-primary-card [description]="'Luce'" [value]="currentPlant.sensorData.lightIntensity" [unitMeasure]="'Lux'"
+            [icon]="'sunny'" [color]="'green'">
+        </app-primary-card>
+    </div>
+
+    <div class="param2">
+        <app-primary-card [description]="'Temperatura'" [value]="currentPlant.sensorData.temperature" [unitMeasure]="'°C'"
+            [icon]="'thermostat'" [color]="'green'">
+        </app-primary-card>
+    </div>
+
+    <div class="param3">
+        <app-primary-card [description]="'Umidità'" [value]="currentPlant.sensorData.humidity" [unitMeasure]="'%'"
+            [icon]="'water_drop'" [color]="'green'">
+        </app-primary-card>
+    </div>
+
+    <div class="param4">
+        <app-primary-card [description]="'Serbatoio'" [value]="currentPlant.sensorData.tankLevel" [unitMeasure]="'%'"
+            [icon]="'water'" [color]="'blue'">
+        </app-primary-card>
+    </div>
+</div>
+    </swiper-slide>
+
+</swiper-container>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+<!-- card dinamica -->
+
+<!-- <div class="m-2 ms-3 mt-4 p-2 py-5 container-general">
     <img src="../../assets/images/pianta.png" alt="Plant" class="plant-image">
 
     <div class="param1">
@@ -25,11 +62,11 @@
             [icon]="'water'" [color]="'blue'">
         </app-primary-card>
     </div>
-</div>
+</div> -->
 <!-- fine card dinamica -->
 
-<div style="margin-top: 60px">
-    <ion-card class="border-radius-container-tips-general">
+<div>
+    <ion-card class="border-radius-container-tips-general m-3 mt-1">
 
         <ion-card-header>
             <div class="d-flex justify-content-between align-items-center">

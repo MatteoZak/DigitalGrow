@@ -34,30 +34,40 @@ export class ExploreContainerComponent implements OnInit {
   currentSensorData: SensorData = { temperature: 22, humidity: 80, tankLevel: 10, lightIntensity: 7000 };
   
   userPlants: Plant[] = [
-    { 
-      name: 'Pianta del Salotto', 
-      image: '../../assets/images/pianta1.png',
-      // I dati dei sensori ora sono in un oggetto annidato
+    {
+      name: 'Plant 1',
+      image: '../../assets/images/pianta.png',
       sensorData: {
-        lightIntensity: 75,
-        temperature: 22,
-        humidity: 55,
-        tankLevel: 80
+        temperature: 18,
+        humidity: 35,
+        lightIntensity: 300,
+        tankLevel: 70,
       },
-      isFavorite: true
+      isFavorite: false,
     },
-    { 
-      name: 'Pianta della Cucina', 
-      image: '../../assets/images/pianta2.png',
+    {
+      name: 'Plant 2',
+      image: '../../assets/images/image_plant.png',
       sensorData: {
-        lightIntensity: 60,
-        temperature: 24,
-        humidity: 60,
-        tankLevel: 45
+        temperature: 25,
+        humidity: 80,
+        lightIntensity: 500,
+        tankLevel: 90,
       },
-      isFavorite: false
+      isFavorite: false,
+    },
+    {
+      name: 'Plant 3',
+      image: '../../assets/images/plant_3.png',
+      sensorData: {
+        temperature: 28,
+        humidity: 64,
+        lightIntensity: 800,
+        tankLevel: 10,
+      },
+      isFavorite: false,
     }
-  ];
+  ]
 
   plantType: string = 'Aglaonema';
   careSheet: string = '';
