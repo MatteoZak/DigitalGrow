@@ -11,8 +11,7 @@ import { ActionsPopoverComponent } from './action-popover.component';
   styleUrls: ['./generic-card-plants.component.scss'],
   imports: [
     IonicModule,
-    CommonModule,
-    ActionsPopoverComponent, 
+    CommonModule, 
 ],
   standalone: true
 })

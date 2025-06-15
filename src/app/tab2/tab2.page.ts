@@ -1,7 +1,7 @@
 import { Component, inject, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonButton, IonSpinner, IonTitle, IonToolbar, IonTextarea } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonButton, IonSpinner, IonToolbar, IonTextarea } from '@ionic/angular/standalone';
 import { GeminiService } from 'src/services/gemini-service/gemini.service';
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -19,7 +19,6 @@ export interface Message {
   imports: [IonHeader, 
     IonButton,
     IonSpinner,
-    IonTitle,
     IonTextarea,
     IonToolbar,
     CommonModule,
