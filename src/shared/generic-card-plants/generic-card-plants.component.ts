@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { Plant } from 'src/app/tab4/tab4.page';
 import { ActionsPopoverComponent } from './action-popover.component';
@@ -18,6 +18,8 @@ import { ActionsPopoverComponent } from './action-popover.component';
 })
 export class GenericCardPlantsComponent  implements OnInit {
   @Input() plant?: Plant;
+  @Output() edit = new EventEmitter<Plant>();
+  @Output() delete = new EventEmitter<Plant>();
 
   constructor(private popoverCtrl: PopoverController) { }
 
@@ -31,21 +33,19 @@ export class GenericCardPlantsComponent  implements OnInit {
 
   async presentPopover(e: Event) {
     const popover = await this.popoverCtrl.create({
-      component: ActionsPopoverComponent, // Il componente da mostrare
-      event: e, // L'evento click per il posizionamento
+      component: ActionsPopoverComponent,
+      event: e,
       translucent: true
     });
 
     await popover.present();
 
-    // Aspetta che il popover venga chiuso per ricevere i dati
     const { data } = await popover.onDidDismiss();
     if (data) {
-      console.log('Azione scelta:', data.action);
       if (data.action === 'modifica') {
-        // Logica per modificare
+        this.edit.emit(this.plant);
       } else if (data.action === 'elimina') {
-        // Logica per eliminare
+        this.delete.emit(this.plant);
       }
     }
   }

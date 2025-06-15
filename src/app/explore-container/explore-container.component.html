@@ -1,4 +1,4 @@
-<swiper-container [pagination]="true" [loop]="true">
+<swiper-container #swiperContainer [pagination]="true" [loop]="true">
 
     <swiper-slide *ngFor="let currentPlant of userPlants" style="height: 450px !important;">
         <div class="m-2 ms-3 mt-4 p-2 py-5 container-general">
@@ -74,7 +74,7 @@
                     <ion-card-title>Irrigazione</ion-card-title>
                 </div>
                 <div>
-                    <ion-toggle [(ngModel)]="isIrrigazioneAutomatica">Automatica</ion-toggle>
+                    <ion-toggle [(ngModel)]="activePlant.isIrrigazioneAutomatica">Automatica</ion-toggle>
                 </div>
             </div>
 
@@ -82,10 +82,10 @@
 
         <ion-card-content>
 
-            <div *ngIf="isIrrigazioneAutomatica">
+            <div *ngIf="activePlant.isIrrigazioneAutomatica">
                 <ion-range style="padding-top: 0px !important"
                     aria-label="Range with ticks" [ticks]="true" [snaps]="true" [pin]="true"
-                    [pinFormatter]="pinFormatter" [min]="0" [max]="100" [(ngModel)]="irrigationThreshold">
+                    [pinFormatter]="pinFormatter" [min]="0" [max]="100" [(ngModel)]="activePlant.irrigationThreshold">
                     <div slot="start">0%</div>
                     <div slot="end">100%</div>
                 </ion-range>
@@ -93,7 +93,7 @@
                     La pianta sarà annaffiata in maniera automatica quando l'umidità scenderà sotto il {{ irrigationThreshold }}%
                 </div>
             </div>
-            <div *ngIf="!isIrrigazioneAutomatica">
+            <div *ngIf="!activePlant.isIrrigazioneAutomatica">
                 <ion-button shape="round" style="--background: #71C5F0;">Annaffia</ion-button>
             </div>
 
@@ -102,12 +102,25 @@
 </div>
 
 <div>
-    <app-tips-card *ngIf="dashboardTips && !isLoading" [title]="'Consigli del giorno'" [tips]="dashboardTips"
-        [isLoading]="isLoading">
+    <div *ngIf="isLoading">
+    <ion-card class="border-radius-container-tips-general m-3 mt-1">
+      <ion-card-header>
+        <ion-skeleton-text animated="true" style="width: 50%; height: 24px;"></ion-skeleton-text>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated="true" style="width: 90%;"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 100%;"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 75%;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!isLoading && dashboardTips">
+    <app-tips-card 
+      [title]="'Consigli del giorno'" 
+      [tips]="dashboardTips"
+      [isLoading]="isLoading" 
+      (infoClicked)="goToDetailedTips()">
     </app-tips-card>
+  </div>
 </div>
-
-
-<!-- <app-gemini-chat>
-
-</app-gemini-chat> -->

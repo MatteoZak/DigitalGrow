@@ -8,7 +8,24 @@
 
 <ion-content [fullscreen]="true" class="ion-padding" [scrollEvents]="true">
 
-  <ion-spinner *ngIf="isLoadingSheet"></ion-spinner>
+  <div *ngIf="isLoadingSheet">
+    <ion-card>
+      <ion-card-content>
+        <ion-skeleton-text animated="true" style="width: 60%; height: 28px; margin-bottom: 8px;"></ion-skeleton-text>
+        
+        <ion-skeleton-text animated="true" style="width: 90%"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 75%"></ion-skeleton-text>
+        
+        <br>
+        
+        <ion-skeleton-text animated="true" style="width: 80%"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated="true" style="width: 60%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
   <ion-card *ngIf="!isLoadingSheet">
     <ion-card-content>

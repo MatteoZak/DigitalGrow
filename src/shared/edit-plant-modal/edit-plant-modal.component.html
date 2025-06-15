@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifica Pianta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Annulla</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="editForm" (ngSubmit)="confirm()">
+    <ion-item class="input-item" lines="none">
+      <ion-icon name="leaf-outline" slot="start"></ion-icon>
+      <ion-input
+        label="Nome Pianta"
+        labelPlacement="floating"
+        formControlName="name">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="input-item" lines="none">
+      <ion-icon name="shapes-outline" slot="start"></ion-icon>
+      <ion-input
+        label="Tipo di Pianta"
+        labelPlacement="floating"
+        formControlName="plantType">
+      </ion-input>
+    </ion-item>
+    
+    <ion-button class="ion-margin-top" type="submit" expand="block" [disabled]="editForm.invalid">
+      Salva Modifiche
+    </ion-button>
+  </form>
+</ion-content>

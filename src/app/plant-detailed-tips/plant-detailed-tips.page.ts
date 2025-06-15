@@ -2,16 +2,17 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GeminiService } from 'src/services/gemini-service/gemini.service';
-import { IonContent, IonToolbar, IonTitle, IonCard, IonCardContent, IonSpinner, IonFab, IonFabButton, IonIcon, IonBackButton, IonButtons, IonHeader } from '@ionic/angular/standalone';
+import { IonContent, IonToolbar, IonTitle, IonCard, IonCardContent, IonFab, IonFabButton, IonBackButton, IonButtons, IonHeader, IonSkeletonText } from '@ionic/angular/standalone';
 import { MarkdownModule } from 'ngx-markdown';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-plant-detailed-tips',
   templateUrl: './plant-detailed-tips.page.html',
   styleUrls: ['./plant-detailed-tips.page.scss'],
   standalone: true,
-  imports: [IonHeader, 
+  imports: [IonSkeletonText, IonHeader, 
     CommonModule,
     FormsModule,
     MarkdownModule,
@@ -19,11 +20,9 @@ import { Subscription } from 'rxjs';
     IonToolbar,
     IonTitle,
     IonCard,
-    IonSpinner,
     IonCardContent,
     IonFab,
     IonFabButton,
-    IonIcon,
     IonBackButton,
     IonButtons
   ]
@@ -33,19 +32,28 @@ export class PlantDetailedTipsPage implements OnInit {
   @ViewChild(IonContent) private content!: IonContent;
   
   private geminiService: GeminiService = inject(GeminiService);
+  private route = inject(ActivatedRoute);
   private scrollSubscription!: Subscription;
 
+  plantType: string = '';
   careSheetHeader: string = '';
   careSheetBody: string = '';
   isLoadingSheet: boolean = false;
   error: string | null = null;
-  plantType: string = 'Aglaonema';
   showScrollToTopButton: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
-    this.fetchDetailedCareSheet();
+    const typeFromRoute = this.route.snapshot.paramMap.get('plantType');
+    
+    if (typeFromRoute) {
+      this.plantType = typeFromRoute;
+      this.fetchDetailedCareSheet();
+    } else {
+      console.error('Nessun plantType trovato nella rotta!');
+      this.error = 'Impossibile caricare i dati della pianta.';
+    }
   }
 
   ionViewDidEnter() {

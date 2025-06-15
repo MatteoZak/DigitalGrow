@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { MarkdownModule } from 'ngx-markdown';
@@ -7,6 +7,8 @@ import { GeminiService, SensorData } from 'src/services/gemini-service/gemini.se
 import { PrimaryCardComponent } from 'src/shared/primary-card/primary-card.component';
 import { TipsCardComponent } from 'src/shared/tips-card/tips-card.component';
 import { Plant } from '../tab4/tab4.page';
+import Swiper from 'swiper';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [
@@ -23,9 +25,12 @@ import { Plant } from '../tab4/tab4.page';
   styleUrls: ['./explore-container.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ExploreContainerComponent implements OnInit {
+export class ExploreContainerComponent {
+  @ViewChild('swiperContainer') swiperRef!: ElementRef;
 
   private geminiService = inject(GeminiService);
+  private cdr = inject(ChangeDetectorRef);
+  private _router = inject(Router);
   dashboardTips: string = '';
   isLoadingTips: boolean = false;
   isIrrigazioneAutomatica: boolean = false;
@@ -36,6 +41,7 @@ export class ExploreContainerComponent implements OnInit {
   userPlants: Plant[] = [
     {
       name: 'Plant 1',
+      plantType: 'Aglaonema',
       image: '../../assets/images/pianta.png',
       sensorData: {
         temperature: 18,
@@ -44,9 +50,12 @@ export class ExploreContainerComponent implements OnInit {
         tankLevel: 70,
       },
       isFavorite: false,
+      isIrrigazioneAutomatica: true,
+      irrigationThreshold: 40,
     },
     {
       name: 'Plant 2',
+      plantType: 'Monstera Deliciosa',
       image: '../../assets/images/image_plant.png',
       sensorData: {
         temperature: 25,
@@ -55,9 +64,12 @@ export class ExploreContainerComponent implements OnInit {
         tankLevel: 90,
       },
       isFavorite: false,
+      isIrrigazioneAutomatica: false,
+      irrigationThreshold: 50,
     },
     {
       name: 'Plant 3',
+      plantType: 'Sansevieria',
       image: '../../assets/images/plant_3.png',
       sensorData: {
         temperature: 28,
@@ -66,23 +78,44 @@ export class ExploreContainerComponent implements OnInit {
         tankLevel: 10,
       },
       isFavorite: false,
+      isIrrigazioneAutomatica: true,
+      irrigationThreshold: 30,
     }
   ]
 
-  plantType: string = 'Aglaonema';
+  activePlant!: Plant;
   careSheet: string = '';
   isLoading: boolean = false;
   error: string | null = null;
 
-  ngOnInit() {
-    this.fetchDashboardTips();
+  constructor() {
+    if (this.userPlants.length > 0) {
+      this.activePlant = this.userPlants[0];
+    }
+  }
+  
+  async ngAfterViewInit() {
+    const swiperEl = this.swiperRef.nativeElement;
+
+    await swiperEl.initialize();
+
+    swiperEl.swiper.on('slideChange', (swiper: Swiper) => {
+      const activeIndex = swiper.realIndex;
+      
+      this.activePlant = this.userPlants[activeIndex];
+      
+      this.fetchDashboardTips(this.activePlant);
+      
+      this.cdr.detectChanges();
+    });
   }
 
-  fetchDashboardTips() {
-    this.isLoadingTips = true;
-    this.geminiService.getDashboardTips(this.plantType, this.currentSensorData).subscribe(tips => {
+  fetchDashboardTips(plant: Plant) {
+    this.isLoading = true;
+    this.dashboardTips = '';
+    this.geminiService.getDashboardTips(plant.plantType, plant.sensorData).subscribe(tips => {
       this.dashboardTips = tips;
-      this.isLoadingTips = false;
+      this.isLoading = false;
     });
   }
 
@@ -90,7 +123,7 @@ export class ExploreContainerComponent implements OnInit {
     this.isLoading = true;
     this.error = null;
 
-    this.geminiService.getDetailedCareSheet(this.plantType).subscribe({
+    this.geminiService.getDetailedCareSheet(this.activePlant.plantType).subscribe({
       next: (responseText: string) => {
         
         this.careSheet = responseText;
@@ -108,6 +141,10 @@ export class ExploreContainerComponent implements OnInit {
 
   pinFormatter(value: number) {
     return `${value}%`;
+  }
+
+  goToDetailedTips() {
+    this._router.navigate(['/plant-detailed-tips', this.activePlant.plantType]);
   }
   
 }

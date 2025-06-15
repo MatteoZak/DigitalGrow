@@ -10,6 +10,10 @@
 <ion-content [fullscreen]="true" >
   <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
    @for (item of plants; track $index) {
-    <app-generic-card-plants [plant]="item"></app-generic-card-plants>
+    <app-generic-card-plants
+      [plant]="item"
+      (edit)="openEditModal($event)"
+      (delete)="confirmDelete($event)"
+    ></app-generic-card-plants>
    }
 </ion-content>
